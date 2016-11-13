@@ -1,0 +1,9 @@
+---
+# tasks file for docker_rhel_install
+# this role is for installing docker on RHEL Server only
+- block:
+  - include: enable_proxy_docker.yml 
+  - include: docker_install.yml 
+  tags:
+  - docker_rhel_install
+

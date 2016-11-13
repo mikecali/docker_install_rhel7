@@ -1,0 +1,35 @@
+---
+# based on https://docs.docker.com/engine/admin/systemd/#http-proxy
+
+  - name: Create Systemd drop-in directory
+    file: 
+      path: /etc/systemd/system/docker.service.d 
+      state: directory
+      owner: root
+      mode: 0755
+  
+  - name: Add http_proxy variable 
+    copy:
+      src: http-proxy.conf
+      dest: /etc/systemd/system/docker.service.d/
+      owner: root
+      mode: 0644
+
+  - name: Update Root's bash_profile
+    copy:
+      src: bash_profile
+      dest: /root/.bash_profile
+      owner: root
+      mode: 0644
+ 
+  - name: Flush changes
+    shell: systemctl daemon-reload
+    become: yes
+ 
+  - name: source bash_profile file
+    shell: . ./.bash_profile
+    become: yes
+
+  - name: reload OS environment 
+    shell: . /etc/environment
+    become: yes
