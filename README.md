@@ -1,4 +1,4 @@
-Ansible Playbook for Docker Install and running initial docker container
+Ansible Playbook to Install Docker
 =========
 
 This playbook is for docker installation on RHEL 7.x.
